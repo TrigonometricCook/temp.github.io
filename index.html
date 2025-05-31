@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Product Data Form</title>
+<style>
+  body {
+    font-family: sans-serif;
+    background: #f0f0f0;
+    margin: 20px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  form {
+    max-width: 400px;
+    background: #ffffff;
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+  }
+
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #999;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    background: #286090;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #204d74;
+  }
+
+  .product-listing {
+    max-width: 600px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .product-listing h3 {
+    margin-top: 0;
+  }
+
+  .product-listing p {
+    margin: 5px 0;
+  }
+
+  .product-price {
+    color: #b12704;
+    font-size: 1.2em;
+  }
+</style>
+</head>
+<body>
+
+<h2>Product Data Form</h2>
+
+<form id="productForm">
+  <label for="name">Product Name</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="price">Price ($)</label>
+  <input type="number" id="price" name="price" min="0" step="0.01" required>
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="4"></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div id="productList"></div>
+
+<script>
+  document.getElementById('productForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get the form values
+    var name = document.getElementById('name').value.trim();
+    var price = document.getElementById('price').value.trim();
+    var description = document.getElementById('description').value.trim();
+
+    if (!name || !price) {
+      alert('Please fill in required fields.');
+      return;
+    }
+
+    // Create the product listing
+    var productList = document.getElementById('productList');
+    var productDiv = document.createElement('div');
+    productDiv.className = 'product-listing';
+
+    productDiv.innerHTML = '<h3>' + name + '</h3>' +
+      '<p class="product-price">$' + parseFloat(price).toFixed(2) + '</p>' +
+      '<p>' + (description ? description : 'No description provided.') + '</p>';
+
+    productList.appendChild(productDiv);
+
+    // Reset form
+    document.getElementById('productForm').reset();
+  });
+</script>
+
+</body>
+</html>
